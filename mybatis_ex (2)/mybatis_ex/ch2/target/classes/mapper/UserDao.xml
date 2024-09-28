@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.UserDao">
+    <select id="selectUserById" parameterType="int"  resultType="user">
+        select * from userinfo where uid = #{id}
+    </select>
+    <delete id="deleteUserById" parameterType="int" >
+        delete from  userinfo where uid = #{id}
+    </delete>
+    <update id="updateUser" parameterType="int" >
+        update userinfo set uname=#{username},upassword=#{password} where uid=#{uid}
+    </update>
+</mapper>
