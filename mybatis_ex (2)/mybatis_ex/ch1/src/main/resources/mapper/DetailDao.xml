@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.ldxy.dao.DetailDao">
+    <!--按用户的姓名、地址、电话号码进行多条件查询。-->
+    <select id="selectByPros" parameterType="detail" resultType="detail">
+        select * from userdetail <where>
+        <if test="urealname!=null and urealname!=''">
+           and  urealname=#{urealname}
+        </if>
+        <if test="uaddress!=null and uaddress!=''">
+            and  uaddress like concat('%',#{uaddress},'%')
+        </if>
+        <if test="uphone!=null and uphone!=''">
+            and  uphone=#{uphone}
+        </if>
+    </where>
+    </select>
+    <!--具有优先关系的单条件查询。-->
+    <select id="selectByPro" parameterType="detail" resultType="detail">
+        select * from userdetail where 1=1
+        <choose>
+            <when test="urealname!=null and urealname!=''">
+                and  urealname=#{urealname}
+            </when>
+            <when test="uaddress!=null and uaddress!=''">
+                and  uaddress like concat('%',#{uaddress},'%')
+            </when>
+            <otherwise>
+                and uphone is not null
+            </otherwise>
+        </choose>
+    </select>
+</mapper>
